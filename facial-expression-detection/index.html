@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Emotion detection UX concept - 1E</title>
+		<meta charset="utf-8">
+		<script>
+			if (window.location.hostname !== "localhost" && window.location.protocol !== "https:"){
+				window.location.protocol = "https";
+			}
+		</script>
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+
+	<body>
+		<script src="js/utils.min.js"></script>
+		<script src="js/clmtrackr.min.js"></script>
+		<script src="js/models/model_pca_20_svm_emotionDetection.min.js"></script>
+		<script src="js/d3.min.js"></script>
+		<script src="js/emotion_classifier.min.js"></script>
+		<script src="js/models/emotionmodel.min.js"></script>
+		<script src="js/lib/jquery.min.js"></script>
+
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+		<div class="expression-panel surprised">
+			<h1>Are you surprised by something?</h1>
+			<p>Would you like to do any of these?</p>
+			<h2>Alerts</h2>
+			<a href="#">View 3 most recent alerts</a>
+			<a href="#">View 3 most recent alerts with a risk of 8 or more</a>
+			<a href="#">Start monitoring alerts</a>
+			<h2>Devices</h2>
+			<a href="#">View devices affected by the highest number of alerts (top 3)</a>
+			<a href="#">View devices affected by the highest risk alerts (top 3)</a>
+			<h2>Products</h2>
+			<a href="#">View products affected by the highest number of alerts (top 3)</a>
+			<a href="#">View products affected by the highest risk alerts (top 3)</a>
+
+			<span class="dontshow">
+				<input type="checkbox" id="dontshow" />
+  				<label for="dontshow">Do not show these options again</label>
+			</span>
+
+			<span class="close"></span>
+		</div>
+
+		<div class="info">
+			<h2>Facial expression detection UX concept - 1E</h2>
+			<p>Allow webcam access and try different facial expressions (e.g. surprised or angry). Press <em>SPACE</em> to see details of background processing. </p>
+		</div>
+		
+		<div class="container cf">
+			<div class="media">
+				<video id="videoel" width="400" height="300" preload="auto" loop></video>
+				<canvas id="overlay" width="400" height="300"></canvas>
+			</div>
+			
+			<div class="emotion_container">
+				<!--
+				<div id="emotion_icons">
+					<img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
+					<img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
+					<img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
+					<img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
+				</div>
+				-->
+				<div id='emotion_chart'></div>
+			</div>
+		</div>
+		<canvas id="sketch" width="400" height="300"></canvas>
+		
+		
+		<div class="controls" style="display: none">
+			<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
+		</div>
+
+		<script src="js/main.min.js"></script>
+	</body>
+</html>

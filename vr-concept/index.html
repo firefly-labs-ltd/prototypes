@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html ng-app="VRConcept">
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>Virtual reality UX concept prototype</title>
+        <meta name="description" content="Hello, World! • A-Frame">
+        <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+        <!--
+        <script src="js/lib/aframe.min.js"></script>
+        -->
+        <script src="js/lib/aframe-bmfont-text-component.min.js"></script>
+        <script src="js/lib/webvr-polyfill.min.js"></script>
+
+        <script src="js/lib/annyang.min.js"></script>
+
+        <script src="js/lib/jquery.min.js"></script>
+
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/controller.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/prototypes/vr-concept/css/styles.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+
+        <!-- ************************************ -->
+        <!-- NON-VR STATIC CONTENT -->
+        <!-- ************************************ -->
+
+        <!--
+        <div class="static-content">
+          <img class="logo" src="/prototypes/vr-concept/img/1ELogo.png"/>
+        </div>
+      -->
+
+        <div class="timer">
+          <div class="progress"></div>
+        </div>
+
+        <p class="concept-info">Virtual reality UX concept prototype</p>
+
+        <!-- ************************************ -->
+        <!-- VR SCENE -->
+        <!-- ************************************ -->
+
+        <a-scene ng-controller="VRConceptController">
+        
+            <!--
+            <a-entity
+              collada-model="#model"
+              scale=".2 .2 .2"
+              >
+            </a-entity>
+
+            <a-entity
+              bmfont-text="
+                text: Applications;
+                color: #000000"
+              scale="2 2 2">
+            </a-entity>
+            -->
+
+            <!--
+            <a-sphere position="0 0 -10" radius=".5" color="#bbbbbb" metalness="0.2"></a-sphere>
+            <a-cylinder color="#bbbbbb" segments-radial="8" height="2" radius=".03" position="0 -1.5 -10"></a-cylinder>
+            <a-sphere position="0 -3 -10" radius=".5" color="#bbbbbb" metalness="0.2"></a-sphere>
+
+            <a-sphere position="{{n}} -3 -10" radius=".5" color="#bbbbbb" metalness="0.2" ng-repeat="n in spheres"></a-sphere>
+            -->
+
+
+
+            <!-- ************************************ -->
+            <!-- INTERFACE GENERAL -->
+            <!-- ************************************ -->
+
+            <!-- Assets -->
+            <a-assets>
+                <a-asset-item id="model" src="model/model.dae"></a-asset-item>
+
+                <img id="sec-posture-src" src="/prototypes/vr-concept/img/security-posture.png" width="1612" height="955">
+                <img id="notifications-src" src="/prototypes/vr-concept/img/notifications.png" width="139" height="80">
+                <img id="mic-src" src="/prototypes/vr-concept/img/mic.png" width="256" height="256">
+                <img id="notifications-case-created-src" src="/prototypes/vr-concept/img/notification-case-created.png" width="918" height="278">
+                <img id="bubble-oracle-src" src="/prototypes/vr-concept/img/bubbleOracle.png" width="253" height="252">
+                <img id="tachyon-logo-src" src="/prototypes/vr-concept/img/tachyonLogo.png" width="650" height="306">
+                <img id="transition-video-start-frame-src" src="/prototypes/vr-concept/img/transitionVideoStartFrame.png" width="1233" height="842">
+                <img id="transition-video-end-frame-src" src="/prototypes/vr-concept/img/transitionVideoEndFrame.png" width="866" height="668">
+
+                <img id="assistant-help-src" src="/prototypes/vr-concept/img/assistant-help.png" width="620" height="183">
+
+                <img id="question-mark-src" src="/prototypes/vr-concept/img/question-mark.png" width="73" height="63">
+
+                <video id="security-posture-transition-src" src="/prototypes/vr-concept/vid/tachyon-security-animation3_7.mp4"
+                       crossOrigin="anonymous"
+                       autoplay="false"
+                       loop="false"
+                       width="1612"
+                       height="955"
+                       webkit-playsinline>
+                </video>
+
+                <video id="security-posture-transition-reverse-src" src="/prototypes/vr-concept/vid/reversed-animation3_3.mp4"
+                       crossOrigin="anonymous"
+                       autoplay="false"
+                       loop="false"
+                       width="1612"
+                       height="955"
+                       webkit-playsinline>
+                </video>
+            </a-assets>
+
+            <!-- Sky -->
+            <a-sky color="#ffffff"></a-sky>
+            <!--
+            <a-sky src="img/screens-bg-color-only.jpg" rotation="0 -90 0"></a-sky>
+            -->
+
+            <!-- Camera and cursor -->
+            <a-entity position="0 0 1.1">
+              <a-camera fov="60">
+                <a-cursor color="#4CC3D9"
+                          fuse="true"
+                          timeout="1000"
+                          position="0 0 -.5"
+                          geometry="primitive: ring; radiusOuter: 0.005; radiusInner: 0.003;"></a-cursor>
+              </a-camera>
+            </a-entity>
+
+
+            <!-- ************************************ -->
+            <!-- INTERFACE HEADER AREA -->
+            <!-- ************************************ -->
+            
+            <!-- Tachyon Logo -->
+            <a-image src="#tachyon-logo-src"
+                     position="0 4.5 -3"
+                     scale="2.5 1 .5"
+                     id="tachyon-logo-img"
+                     look-at="[camera]"
+                     opacity=".5">
+            </a-image>
+
+            <!-- Notifications trigger image -->
+            <a-image src="#notifications-src" position=".7 2.1 0" scale=".2 .1 .1" id="notifications-img" look-at="[camera]">
+            </a-image>
+
+            <!-- Notifications trigger plane -->
+            <a-entity id="notificationsTrg"
+              geometry="primitive: plane"
+              material="color: #ffffff; opacity: 0"
+              position=".7 2.1 .01"
+              scale=".22 .105 .1"
+              look-at="[camera]">
+                <a-event name="mouseenter" material="opacity: 0.5"></a-event>
+                <a-event name="mouseleave" material="opacity: 0"></a-event>
+                <a-event name="click" material="opacity: 0"></a-event>
+            </a-entity>
+
+            <!-- Microphone icon image -->
+            <a-image src="#mic-src" position="-.7 2.1 0" scale=".1 .1 .1" id="mic-img" look-at="[camera]">
+            </a-image>
+
+            <!-- Tachyon assistant help - list of instructions -->
+            <a-image src="#assistant-help-src"
+                      position="-.9 2 0.5"
+                      scale=".78 .24 .17"
+                      id="assistant-help-img"
+                      look-at="[camera]"
+                      visible="false">
+                <a-animation attribute="opacity" begin="appear" from="0" to="1" duration="1000"></a-animation>
+                <a-animation attribute="position" begin="appear" from="-.9 2.05 0.5" to="-.9 2 0.5" duration="1000"></a-animation>
+
+                <a-animation attribute="opacity" begin="disappear" from="1" to="0" duration="1000"></a-animation>
+                <a-animation attribute="position" begin="disappear" from="-.9 2 0.5" to="-.9 2.05 0.5" duration="1000"></a-animation>
+            </a-image>
+
+            <!-- Question mark -->
+            <a-image src="#question-mark-src" position="-.56 2.1 0" scale=".08 .08 .08" id="question-mark-img" look-at="[camera]">
+                <a-animation attribute="scale" begin="emphasize" from=".08 .08 .08" to=".12 .12 .12" duration="500"></a-animation>
+                <a-animation attribute="scale" begin="normal" from=".12 .12 .12" to=".08 .08 .08" duration="500"></a-animation>
+            </a-image>
+
+            <!-- Mic wake-up word highlighter -->
+            <a-entity id="mic-highlighter"
+              geometry="primitive: circle"
+              material="color: #ff0000; opacity: 0.2"
+              position="-.695 2.095 0.01"
+              scale="0 0 0"
+              look-at="[camera]">
+                <a-animation attribute="scale" begin="wakeup" from="0 0 0" to=".08 .08 .08" duration="1000"></a-animation>
+                <a-animation attribute="scale" begin="sleep" from=".08 .08 .08" to="0 0 0" duration="1000"></a-animation>
+            </a-entity>
+
+            <!-- Text: Listening -->
+            <a-entity
+              bmfont-text="
+                text: Listening...;
+                color: #cccccc"
+              scale=".3 .3 .3"
+              position="-.85 2.3 0"
+              look-at="[camera]"
+              id="listening"
+              visible="false">
+                <a-animation attribute="visible" begin="appear" from="false" to="true"></a-animation>
+                <a-animation attribute="position" begin="appear" from="-.85 2.4 0" to="-.85 2.3 0" duration="1000"></a-animation>
+                <a-animation attribute="opacity" begin="appear" from="0" to="1" duration="1000"></a-animation>
+
+                <a-animation attribute="position" begin="disappear" from="-.85 2.3 0" to="-.85 2.4 0" duration="1000"></a-animation>
+                <a-animation attribute="opacity" begin="disappear" from="1" to="0" duration="1000"></a-animation>
+                <a-animation attribute="visible" begin="disappear" from="true" to="false"></a-animation>
+            </a-entity>
+            
+
+            <!-- Notification: case created -->
+            <a-image src="#notifications-case-created-src"
+                     position=".73 1.75 0.5"
+                     scale=".6 .17 .17"
+                     id="notification-case-created-img"
+                     look-at="[camera]">
+
+                <a-animation attribute="opacity" begin="appear" from="0" to="1" duration="1000"></a-animation>
+                <a-animation attribute="position" begin="appear" from=".73 1.75 0.5" to=".73 1.7 0.5" duration="1000"></a-animation>
+
+                <a-animation attribute="opacity" begin="disappear" from="1" to="0" duration="1000"></a-animation>
+                <a-animation attribute="position" begin="disappear" from=".73 1.7 0.5" to=".73 1.75 0.5" duration="1000"></a-animation>
+            </a-image>
+            
+
+            <!-- ************************************ -->
+            <!-- Divider -->
+            <!-- ************************************ -->
+            <a-entity id="divider"
+              geometry="primitive: plane"
+              material="color: #000000; opacity: .05"
+              position="-5 1.95 0.1"
+              scale="20 .005 .12">
+            </a-entity>
+
+
+            <!-- ************************************ -->
+            <!-- INTERFACE MAIN AREA -->
+            <!-- ************************************ -->
+
+            <!-- Transition video start frame -->
+            <a-image src="#transition-video-start-frame-src" position="0.01 1.5 0" scale="1.33 .88 0" id="transition-video-start-frame-img">
+                <a-animation attribute="visible" begin="showStartFrame" from="false" to="true"></a-animation>
+                <a-animation attribute="visible" begin="hideStartFrame" from="true" to="false"></a-animation>
+            </a-image>
+
+            <!-- Transition video end frame -->
+            <a-image src="#transition-video-end-frame-src" position="0.01 1.45 0" scale=".94 .7 0" id="transition-video-end-frame-img" visible="false">
+                <a-animation attribute="visible" begin="showEndFrame" from="false" to="true"></a-animation>
+                <a-animation attribute="visible" begin="hideEndFrame" from="true" to="false"></a-animation>
+            </a-image>
+
+            <!-- Drilldown trigger-->
+            <a-entity id="drillDownTrg"
+              geometry="primitive: circle"
+              material="color: #ffffff; opacity: 0"
+              position=".105 1.325 .02"
+              scale=".11 .11 .11">
+                <a-event name="mouseenter" material="color: #ffffff;opacity: .5"></a-event>
+                <a-event name="mouseleave" material="color: #ffffff;opacity: 0"></a-event>
+            </a-entity>
+
+            <!-- Drillup trigger-->
+            <a-entity id="drillUpTrg"
+              geometry="primitive: plane"
+              material="color:#ffffff;opacity:0"
+              position="-0.02 1.5 .02"
+              scale=".11 .11 .11"
+              visible="false">
+                <a-event name="mouseenter" material="color:#ffffff;opacity: .5"></a-event>
+                <a-event name="mouseleave" material="color:#ffffff;opacity: 0"></a-event>
+            </a-entity>
+
+
+            <a-video src="#security-posture-transition-src"
+                     id="security-posture-transition-vid"
+                     width="16"
+                     height="9"
+                     position="0 1.39 0"
+                     scale=".101 .13 .12"
+                     visible="false">
+
+                     <a-animation attribute="visible" begin="showVideo" from="false" to="true"></a-animation>
+                     <a-animation attribute="visible" begin="hideVideo" from="true" to="false"></a-animation>
+            </a-video>
+
+            <a-video src="#security-posture-transition-reverse-src"
+                     id="security-posture-transition-reverse-vid"
+                     width="16"
+                     height="9"
+                     position="0 1.39 0"
+                     scale=".101 .13 .12"
+                     visible="false">
+
+                     <a-animation attribute="visible" begin="showVideo" from="false" to="true"></a-animation>
+                     <a-animation attribute="visible" begin="hideVideo" from="true" to="false"></a-animation>
+            </a-video>
+            
+
+        <script src="js/voiceRecognition.min.js"></script>
+    </body>
+</html>

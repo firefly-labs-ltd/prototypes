@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "RW"
+AuthUserFile "/home/baladxom/.htpasswds/public_html/prototypes/RefinitivWorkspace/passwd"
+require valid-user
